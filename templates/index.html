@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; max-width: 500px; margin: auto; padding: 20px; background: #f0f2f5; }
+        .card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { background: #007bff; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Vibe Check</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="skill" placeholder="What are you learning?" required>
+        <textarea name="notes" placeholder="Notes..."></textarea>
+        <button type="submit">Post Update</button>
+    </form>
+    <hr>
+    {% for post in posts %}
+    <div class="card">
+        <strong>{{ post.skill }}</strong> <small>{{ post.date }}</small>
+        <p>{{ post.notes }}</p>
+    </div>
+    {% endfor %}
+</body>
+</html>
