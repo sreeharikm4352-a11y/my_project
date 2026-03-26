@@ -1,27 +1,170 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sree Hari | Cyber Portfolio</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; max-width: 500px; margin: auto; padding: 20px; background: #f0f2f5; }
-        .card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        input, textarea { width: 100%; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        button { background: #007bff; color: white; border: none; padding: 10px; width: 100%; border-radius: 5px; cursor: pointer; }
+        :root {
+            --bg-black: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --neon-cyan: #00f3ff;
+            --neon-magenta: #ff00ff;
+            --text-gray: #b0b0b0;
+            --border-glow: rgba(0, 243, 255, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Orbitron', 'Segoe UI', sans-serif; 
+            background-color: var(--bg-black);
+            background-image: 
+                linear-gradient(var(--border-glow) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-glow) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        /* --- LAYOUT STRUCTURE --- */
+        .cyber-container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 25px;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* --- SIDEBAR --- */
+        .profile-sidebar {
+            background: var(--card-bg);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            height: fit-content;
+            box-shadow: 0 0 15px var(--border-glow);
+        }
+
+        .cyber-avatar {
+            width: 90px; height: 90px;
+            background: black;
+            border: 2px solid var(--neon-magenta);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; font-weight: bold; color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .profile-sidebar h1 { font-size: 1.6rem; color: var(--neon-cyan); margin-bottom: 10px; }
+        .profile-sidebar p { font-size: 0.85rem; color: var(--text-gray); }
+
+        /* --- MAIN CONTENT --- */
+        .content-feed { display: flex; flex-direction: column; gap: 25px; }
+
+        /* --- INPUT FORM --- */
+        .input-box {
+            background: var(--card-bg);
+            border: 1px solid var(--neon-magenta);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
+        }
+
+        h3 { color: var(--neon-magenta); font-size: 1rem; margin-bottom: 20px; text-transform: uppercase; }
+
+        input, textarea {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        input:focus { border-color: var(--neon-cyan); box-shadow: 0 0 10px var(--border-glow); }
+
+        .btn-submit {
+            width: 100%;
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover { 
+            background: var(--neon-cyan); 
+            color: black; 
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* --- UPDATE CARDS --- */
+        .post-card {
+            background: var(--card-bg);
+            border: 1px solid #222;
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 10px;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        .post-card:hover { border-color: var(--neon-magenta); transform: scale(1.01); }
+        .post-card h4 { color: var(--neon-cyan); margin-bottom: 10px; }
+        .post-card p { font-size: 0.95rem; line-height: 1.6; }
+        .timestamp { display: block; margin-top: 15px; font-size: 0.75rem; color: var(--text-gray); }
+
+        /* Mobile View */
+        @media (max-width: 800px) {
+            .cyber-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <h1>🚀 Vibe Check</h1>
-    <form action="/add" method="POST">
-        <input type="text" name="skill" placeholder="What are you learning?" required>
-        <textarea name="notes" placeholder="Notes..."></textarea>
-        <button type="submit">Post Update</button>
-    </form>
-    <hr>
-    {% for post in posts %}
-    <div class="card">
-        <strong>{{ post.skill }}</strong> <small>{{ post.date }}</small>
-        <p>{{ post.notes }}</p>
+
+    <div class="cyber-container">
+        <aside class="profile-sidebar">
+            <div class="cyber-avatar">SH</div>
+            <h1>Sree Hari</h1>
+            <p>Full-Stack Developer | Python & AI</p>
+            <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 20px;">
+                <p style="color: var(--neon-magenta);">SEC Course 2026</p>
+            </div>
+        </aside>
+
+        <main class="content-feed">
+            <section class="input-box">
+                <h3>Terminal Entry</h3>
+                <form action="/add" method="POST">
+                    <input type="text" name="skill" placeholder="Skill/Topic" required>
+                    <textarea name="notes" placeholder="Command logs..." rows="3"></textarea>
+                    <button type="submit" class="btn-submit">Push to MongoDB</button>
+                </form>
+            </section>
+
+            <div class="logs">
+                <h3 style="margin-bottom: 15px; padding-left: 10px;">Activity Logs</h3>
+                {% for post in posts %}
+                <div class="post-card">
+                    <h4>{{ post.skill }}</h4>
+                    <p>{{ post.notes }}</p>
+                    <span class="timestamp">ENTRY_DATE: {{ post.date }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
     </div>
-    {% endfor %}
+
 </body>
 </html>
